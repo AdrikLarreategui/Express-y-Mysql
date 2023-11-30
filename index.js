@@ -82,7 +82,7 @@ app.put("categories/id/:id", (req, res) => {
 
 //Ejercicio 4:
 // Endpoint para mostrar todos los productos
-app.get('/products', (req, res) => {
+app.get('/productsShown', (req, res) => {
     const sql = `SELECT * FROM products`
     newDataBase.query(sql, (err, result) => {
         if(err) throw err
@@ -91,7 +91,7 @@ app.get('/products', (req, res) => {
 })
 
 // Endpoint para mostrar todas las categorías
-app.get('/categories', (req, res) => {
+app.get('/categoriesShown', (req, res) => {
     const sql =`SELECT * FROM categories`
     newDataBase.query(sql, (err, result) => {
         if(err) throw err
