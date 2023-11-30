@@ -81,6 +81,7 @@ app.put("categories/id/:id", (req, res) => {
 })
 
 //Ejercicio 4:
+// Endpoint para mostrar todos los productos
 app.get('/products', (req, res) => {
     const sql = `SELECT * FROM products`
     newDataBase.query(sql, (err, result) => {
@@ -89,6 +90,7 @@ app.get('/products', (req, res) => {
     })
 })
 
+// Endpoint para mostrar todas las categorías
 app.get('/categories', (req, res) => {
     const sql =`SELECT * FROM categories`
     newDataBase.query(sql, (err, result) => {
@@ -97,6 +99,17 @@ app.get('/categories', (req, res) => {
     })
 })
 
+// Endpoint para mostrar todos los productos con sus categorías
+app.get('/products-categories', (req, res) => {
+    const sql = 'SELECT * FROM Products LEFT JOIN Categories ON Products.categoriesId = Categories.id'
+    newDataBase.query(sql, (err, result) => {
+        if(err) throw err
+        res.send({message: 'Products and Categories'})
+    })
+})
+
+
+// Endpoint para seleccionar un producto por id
 app.get('products/id/:id', (req, res) => {
     const sql = `SELECT * FROM products WHERE id = ${req.params.id}`
     newDataBase.query(sql, (err, result) => {
@@ -105,8 +118,27 @@ app.get('products/id/:id', (req, res) => {
     })
 })
 
+// Endpoint para mostrar productos de forma descendente
+app.get('/products-desc', (req, res) => {
+    const sql = `SELECT * FROM products ORDER BY id DESC`
+    newDataBase.query(sql, (err, result) => {
+        if(err) throw err
+        res.send(result)
+    })
+})
+
+// Endpoint para seleccionar una categoría por id
 app.get('categories/id/:id', (req, res) => {
     const sql = `SELECT * FROM categories WHERE id = ${req.params.id}`
+    newDataBase.query(sql, (err, result) => {
+        if(err) throw err
+        res.send(result)
+    })
+})
+
+// Endpoint para mostrar categorías de forma descendente
+app.get('/categories-desc', (req, res) => {
+    const sql = `SELECT * FROM categories ORDER BY id DESC`
     newDataBase.query(sql, (err, result) => {
         if(err) throw err
         res.send(result)
