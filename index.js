@@ -42,14 +42,86 @@ app.get('/createTable3', (req,res) => {
 
 //Ejecicio 2:
 app.post("/", (req, res) => {
-    const sql = 'INSERT INTO products (name, price) values (phone, 200), (laptop, 500)'
+    const sql = `INSERT INTO products (name, price) values ('${req.body.name}', '${req.body.price}'), ('${req.body.name}', '${req.body.price}')`
     newDataBase.query(sql, (err, result) => {
         if(err) throw err
-        console.log(result)
+        console.log(req.body)
         res.send('Products added')
     })
 })
-//Falta añadir la categoría
+
+app.post("/categories", (req,res) => {
+    const sql = `INSERT INTO categories (categories) values ('${req.body.categories}'), ('${req.body.categories}')`
+    newDataBase.query(sql, (err, result) => {
+        if(err) throw err
+        console.log(req.body)
+        res.send('Categories added')
+    })
+})
+
+//Ejercicio 3:
+app.put("products/id/:id", (req, res) => {
+    const newProduct = "Update product"
+    const sql = `UPDATE products SET name = '${newProduct}' WHERE id = ${req.params.id}` 
+    newDataBase.query(sql, (err, result) => {
+        if(err) throw err
+        console.log(req.params)
+        res.send('Product updated')
+    })
+})
+
+app.put("categories/id/:id", (req, res) => {
+    const newCategory = "Update category"
+    const sql = `UPDATE categories SET categories = '${newCategory}' WHERE id = ${req.params.id}`
+    newDataBase.query(sql, (err, result) => {
+        if(err) throw err
+        console.log(req.params)
+        res.send('Categories updated')
+    })
+})
+
+//Ejercicio 4:
+app.get('/products', (req, res) => {
+    const sql = `SELECT * FROM products`
+    newDataBase.query(sql, (err, result) => {
+        if(err) throw err
+        res.send({ message: 'Get products', })
+    })
+})
+
+app.get('/categories', (req, res) => {
+    const sql =`SELECT * FROM categories`
+    newDataBase.query(sql, (err, result) => {
+        if(err) throw err
+        res.send({message: 'Get categories'})
+    })
+})
+
+app.get('products/id/:id', (req, res) => {
+    const sql = `SELECT * FROM products WHERE id = ${req.params.id}`
+    newDataBase.query(sql, (err, result) => {
+        if(err) throw err
+        res.send(result)
+    })
+})
+
+app.get('categories/id/:id', (req, res) => {
+    const sql = `SELECT * FROM categories WHERE id = ${req.params.id}`
+    newDataBase.query(sql, (err, result) => {
+        if(err) throw err
+        res.send(result)
+    })
+})
+
+//Ejercicio 5:
+// app.delete('/products/id/:id', (req, res) => {
+//     const sql = `DELETE FROM products WHERE id = ${req.params.id} `
+//     newDataBase.query(sql, (err, result) => {
+//         if(err) throw err
+//         console.log(req.params)
+//         res.send('Product deleted')
+//     })
+// })
 
 app.listen(PORT, () => {
     console.log(`Server working at port ${PORT} `);
