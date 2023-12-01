@@ -60,8 +60,9 @@ app.post("/categories", (req,res) => {
 })
 
 //Ejercicio 3:
-app.put("products/id/:id", (req, res) => {
+app.put("/products/id/:id", (req, res) => {
     const productId = parseInt(req.params.id, 10);
+    console.log(req.params.id)
     // const newProduct = 
     const sql = `UPDATE products SET name = "${req.query.name}" WHERE id = ${productId}` 
     newDataBase.query(sql, (err, result) => {
@@ -71,9 +72,10 @@ app.put("products/id/:id", (req, res) => {
     })
 })
 
-app.put("categories/id/:id", (req, res) => {
-    const newCategory = req.body.name
-    const sql = `UPDATE categories SET categories = '${newCategory}' WHERE id = ${req.params.id}`
+app.put("/categories/id/:id", (req, res) => {
+    // const newCategory = req.body.name
+    const categoriesId = parseInt(req.params.id, 10)
+    const sql = `UPDATE categories SET categories = '${req.query.categories}' WHERE id = ${categoriesId}`
     newDataBase.query(sql, (err, result) => {
         if(err) throw err
         console.log(req.params)
@@ -111,7 +113,7 @@ app.get('/products-categories', (req, res) => {
 
 
 // Endpoint para seleccionar un producto por id
-app.get('getProducts/id/:id', (req, res) => {
+app.get('/getProducts/id/:id', (req, res) => {
     const sql = `SELECT * FROM products WHERE id = ${req.params.id}`
     newDataBase.query(sql, (err, result) => {
         if(err) throw err
@@ -129,7 +131,7 @@ app.get('/products-desc', (req, res) => {
 })
 
 // Endpoint para seleccionar una categoría por id
-app.get('getCategories/id/:id', (req, res) => {
+app.get('/getCategories/id/:id', (req, res) => {
     const sql = `SELECT * FROM categories WHERE id = ${req.params.id}`
     newDataBase.query(sql, (err, result) => {
         if(err) throw err
@@ -147,7 +149,7 @@ app.get('/categories-desc', (req, res) => {
 })
 
 //Ejercicio 5:
-app.delete('/products/id/:id', (req, res) => {
+app.delete('/deleteProducts/id/:id', (req, res) => {
     const sql = `DELETE FROM products WHERE id = ${req.params.id} `
     newDataBase.query(sql, (err, result) => {
         if(err) throw err
