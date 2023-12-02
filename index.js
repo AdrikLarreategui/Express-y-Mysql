@@ -11,6 +11,8 @@ const newDataBase = mysql.createConnection({
     database: 'newDataBase'
 })
 newDataBase.connect()
+// module.exports = newDataBase <= Esto va en el fichero anexo de javascript que crearemos luego!
+
 
 //Ejercicio 1:
 app.get('/createdb', (req,res) => {
