@@ -160,6 +160,4 @@ app.delete('/deleteProducts/id/:id', (req, res) => {
     })
 })
 
-app.listen(PORT, () => {
-    console.log(`Server working at port ${PORT} `);
-})
+ 
